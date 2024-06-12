@@ -7,6 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './constans/**/*.{ts,tsx,js}',
 	],
   prefix: "",
   theme: {
@@ -19,6 +20,7 @@ const config = {
     },
     extend: {
       colors: {
+        offWhite: "#f3f3f3",
         backgroundImage: {
         "bank-gradient": "linear-gradient(90deg, #0179FE 0%, #4893FF 100%)",
         "bank-green-gradient":

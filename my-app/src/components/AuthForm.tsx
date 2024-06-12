@@ -9,6 +9,9 @@ import { Form } from "./ui/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
+import {motion} from "framer-motion";
+import {buttonOnHover} from "@/../constants/anim"
+
 const AuthForm = ({ type }: AuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const formSchema = authFormSchema(type);
@@ -69,9 +72,10 @@ const AuthForm = ({ type }: AuthFormProps) => {
               />
             </div>
           )}
-          <button
+          <motion.button
+            {...buttonOnHover()}
             type="submit"
-            className="w-full text-16 rounded-lg border border-bankGradient bg-bank-gradient font-semibold text-black p-2"
+            className="w-full text-16 rounded-lg border-[3px] border-offWhite font-semibold text-black p-2"
             disabled={isLoading}
           >
             {isLoading ? (
@@ -84,7 +88,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
             ) : (
               "Sign Up"
             )}
-          </button>
+          </motion.button>
         </form>
         <footer className="flex justify-center gap-1">
           <p className="text-14 font-normal text-gray-600">
