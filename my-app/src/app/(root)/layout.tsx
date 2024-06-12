@@ -8,7 +8,7 @@ const RootLayout = ({
 }>) => {
   return (
     <>
-      <div className="w-[430px] h-[818px] bg-white rounded-2xl relative">
+      <div className="w-[430px] h-[818px] bg-white rounded-2xl flex flex-col">
         {children}
         <NavBar />
       </div>

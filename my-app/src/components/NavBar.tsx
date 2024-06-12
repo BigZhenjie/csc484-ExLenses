@@ -12,11 +12,11 @@ const NavBar = () => {
   const [selectedNavItem, setSelectedNavItem] = useState(navBarItems[0]);
   const router = useRouter();
   return (
-    <div className="absolute bottom-0 p-2 px-4 flex items-center justify-between w-full border-t-2 border-t-offWhite h-[60px]">
+    <div className="p-2 px-4 flex items-center justify-between w-full border-t-2 border-t-offWhite h-[60px]">
       {navBarItems.map((item, index) => {
         return (
           <div className="w-full">
-            {item === selectedNavItem ? (<motion.div className="h-[2px] bg-[#2B36E0]" layoutId="selected"/>) : null}
+            {item === selectedNavItem ? (<motion.div className="h-[2px] bg-brightBlue" layoutId="selected"/>) : null}
             <motion.img
               {...animateFadeUp(index)}
               src={item.imgPath}

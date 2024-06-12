@@ -20,7 +20,9 @@ const config = {
     },
     extend: {
       colors: {
+        brightBlue: "#2B36E0",
         offWhite: "#f3f3f3",
+        softBlue: "#3572EF",
         backgroundImage: {
         "bank-gradient": "linear-gradient(90deg, #0179FE 0%, #4893FF 100%)",
         "bank-green-gradient":
