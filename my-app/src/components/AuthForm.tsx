@@ -9,13 +9,17 @@ import { Form } from "./ui/form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoaderCircle } from "lucide-react";
-import {motion} from "framer-motion";
-import {buttonOnHover} from "@/../constants/anim"
+import { motion } from "framer-motion";
+import { buttonOnHover } from "@/../constants/anim";
+import { login, signup } from "@/lib/auth";
+import { useUserStore } from "@/lib/user";
 
 const AuthForm = ({ type }: AuthFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const formSchema = authFormSchema(type);
   const router = useRouter();
+  
+  const { user, setUser } = useUserStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -27,12 +31,28 @@ const AuthForm = ({ type }: AuthFormProps) => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
+    //i am using a timeout to simulate a network request
     setTimeout(() => {
-      console.log(data);
+      if (type === "login") {
+        const user = login(data.email, data.password);
+        if (user) {
+          setUser(user);
+          router.push(user.firstTimeOnboard ? "/disclaimer" : "/");
+        }
+      }
+      if (type === "signup") {
+        const user = signup(
+          data.email,
+          data.password,
+          data.firstName!,
+          data.lastName!
+        );
+        if (user) {
+          router.push("/login");
+        }
+      }
       setIsLoading(false);
-      router.push("/");
     }, 1500);
-    
   };
 
   return (

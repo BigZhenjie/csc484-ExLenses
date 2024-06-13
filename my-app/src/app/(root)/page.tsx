@@ -1,10 +1,23 @@
 "use client";
-import React from "react";
-import user from "@/lib/user";
+import React, { useEffect } from "react";
 import Searchbar from "@/components/Searchbar";
+import { useUserStore, useDataStore, useFilteredDataStore } from "@/lib/user";
+import BankCard from "@/components/bankCard";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
-  const { userDetail, setUserDetail, data, setData } = user();
+  const {user} = useUserStore();
+  const {data} = useDataStore();
+  const { filteredData} = useFilteredDataStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user) {
+      // If user doesn't exist, redirect to login page
+      router.push('/login');
+    }
+  }, []);
+
   const currentHour = new Date().getHours();
   let greeting;
   if (currentHour < 12) {
@@ -19,14 +32,21 @@ const Home = () => {
     <main className="p-5 h-full flex flex-col items-center overflow-y-auto gap-5">
       <Searchbar />
       <header className="self-start text-lg">
-        {/* {greeting}, {userDetail?.firstName} */}
+        {/* {greeting}, {user?.firstName} */}
         {greeting},
         <div className=" m-2 ml-10 text-2xl font-bold text-softBlue">
-          Zhenjie
+          {user?.firstName}
         </div>
       </header>
       {data ? (
-        <></>
+        filteredData ? (
+          filteredData.map((bank, index) => {
+            return <BankCard key={index} bankData={bank} />;
+          })
+        ) :
+        data.map((bank, index) => {
+          return <BankCard key={index} bankData={bank} />;
+        })
       ) : (
         <section className="flex flex-col gap-10 mt-20">
           <div className="text-5xl font-bold text-center">
@@ -34,7 +54,14 @@ const Home = () => {
           </div>
           <div className="text-center text-2xl">
             Please connect an account by clicking{" "}
-            <span className=" text-brightBlue font-bold">here.</span>
+            <span
+              className=" text-brightBlue font-bold cursor-pointer"
+              onClick={() => {
+                router.push("/link-account");
+              }}
+            >
+              here.
+            </span>
           </div>
         </section>
       )}

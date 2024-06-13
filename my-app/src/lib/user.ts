@@ -1,11 +1,16 @@
-"use client"
+import { create } from 'zustand'
 
-import { useState } from 'react'
+export const useUserStore = create<userStoreState>((set) => ({
+  user: null,
+  setUser: (user: userDetail) => set({ user })
+}))
 
-const user = () => {
-    const [userDetail, setUserDetail] = useState<userDetail | null>(null);
-    const [data, setData] = useState<transactionDetail[] | null>(null);
-  return {userDetail, setUserDetail, data, setData}
-}
+export const useDataStore = create<dataStoreState>((set) => ({
+  data: null,
+  setData: (data: BankData[] | null) => set({ data })
+}))
 
-export default user
+export const useFilteredDataStore = create<filteredDataStoreState>((set) => ({
+  filteredData: null,
+  setFilteredData: (data: BankData[] | null) => set({ filteredData: data }) // Provide an initializer for the 'filteredData' property
+}))

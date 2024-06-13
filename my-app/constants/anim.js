@@ -7,7 +7,7 @@ export const buttonOnHover = () => ({
     }
 })
 
-export const animateFadeUp = (delay) => ({
+export const animateFadeUpWithDelay = (delay) => ({
     initial: {
         y: 15,
         opacity: 0,
@@ -21,3 +21,16 @@ export const animateFadeUp = (delay) => ({
         }
     }
 })
+
+export const animateSearchbar =  (expanded) => ({
+    initial: {
+        width: '50px',
+    },
+    animate: {
+        width: expanded ? '100%' : '50px',
+        transition: {
+            duration: 0.5,
+        }
+    }
+})
+
