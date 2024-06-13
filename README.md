@@ -4,6 +4,8 @@ Exlenses is an app that allows users to view all bank expenses within one app.
 ## Key Feature
 The key feature of ExLenses is allowing users to connect their banks accounts and searching through specific transactions.
 
+## Video Link
+[https://youtu.be/W-eNbmboUPs]
 ##  How To Run
 First, make sure you are in the my-app directory
 ```bash
