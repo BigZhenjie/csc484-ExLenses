@@ -1,4 +1,5 @@
-# ExLenses
+## ExLenses - Project Overview
+## ExLenses - How To Run
 First, make sure you are in the my-app directory
 ```bash
 cd my-app
