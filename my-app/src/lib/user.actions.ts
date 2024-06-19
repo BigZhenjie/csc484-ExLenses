@@ -24,7 +24,7 @@ export const exchangePublicToken = async ({
 
     const accountData = accountsResponse.data.accounts[0];
 
-    const mockTransactions = getTransactions();
+    const mockTransactions = await getTransactions({accessToken});
 
     const newBankData = createBankData({
       bankId: accountData.account_id,
@@ -65,15 +65,26 @@ export const createLinkToken = async (user: userDetail) => {
 };
 
 
-function getTransactions() {
+async function getTransactions({accessToken} : {accessToken: string}) {
   //get 3 random transactions from mockdata
-  const transactions = mockTransactions;
-  const randomTransactions = [];
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * transactions.length);
-    randomTransactions.push(transactions[randomIndex]);
+  let transactions: any = [];
+
+  try {
+      const response = await plaidClient.transactionsSync({
+        access_token: accessToken,
+        count: 3
+      });
+
+      transactions = response.data.added.map((transaction) => ({
+        description: transaction.name,
+        amount: transaction.amount.toString(),
+        date: transaction.date,
+      }));
+    console.log("transactions", transactions);
+    return parseStringify(transactions);
+  } catch (error) {
+    console.error("An error occurred while getting the accounts:", error);
   }
-  return randomTransactions;
 }
 
 function createBankData({bankId, bankName, mask, balance, type, transactions} : BankData) : BankData {
